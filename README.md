@@ -40,7 +40,7 @@
 
       | Field Name                | Type           | Mode        |
       | ------------------------- | -------------- | ----------- |
-      | cust_tier_code            | TEXT           | REQUIRED    |
+      | cust_tier_code            | STRING         | REQUIRED    |
       | sku                       | INTEGER        | REQUIRED    |
       | total_no_of_product_views | INTEGER        | REQUIRED    |
 
@@ -48,9 +48,9 @@
 
       | Field Name                | Type           | Mode        |
       | ------------------------- | -------------- | ----------- |
-      | cust_tier_code            | TEXT           | REQUIRED    |
+      | cust_tier_code            | STRING         | REQUIRED    |
       | sku                       | INTEGER        | REQUIRED    |
-      | total_sales_amount        | INTEGER        | REQUIRED    |
+      | total_sales_amount        | FLOAT          | REQUIRED    |
   
 ## Pipeline Details
   - Your pipeline should take the following input options
