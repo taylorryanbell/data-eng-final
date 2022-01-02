@@ -34,7 +34,7 @@
       | ORDER_AMT                 | FLOAT          |
 
      ## Output Data Specs
-    - Your pipeline should output the following tables under a schema with the following naming convention ```b2e-data-eng-final.[first-name]-[last-name]``` schema
+    - Your pipeline should output the following tables under a schema with the following naming convention ```b2e-data-eng-final.[first-name]-[last-name]```
 
       ### cust_tier_code-sku-total_no_of_product_views
 
