@@ -69,7 +69,7 @@
     - ```b2e-data-eng-final.input.product_views```
     - ```b2e-data-eng-final.orders```
    
-  - Your pipeline should then merge the input data from the input tables to create the following tables
+  - Your pipeline should then merge data from the input tables to create the following tables
     -  cust_tier_code-sku-total_no_of_product_views
         - The data in this table should be the result of grouping all of the records from the ```b2e-data-eng-final.input.product_views``` table by the customers's tier code, the products sku, and the count of records that match the tier code and sku combination.
     - cust_tier_code-sku-total_sales_amount
