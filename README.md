@@ -5,10 +5,10 @@
  3. Use Jenkins to launch a new Dataflow job anytime code is merged into the main branch of your repo
 
 # General Information
-  - All project resources including any that you create should be under the google cloud project id ```b2e-data-eng-final```
+  - All project resources including any that you create should be under the google cloud project id ```york-cdf-start```
   
     ## Input Data Specs
-    - The input data is stored in three big query tables under the ```b2e-data-eng-final.input``` schema
+    - The input data is stored in three big query tables under the ```york-cdf-start.final_input_data``` schema
 
       ### customers
 
@@ -34,7 +34,7 @@
       | ORDER_AMT                 | FLOAT          |
 
      ## Output Data Specs
-    - Your pipeline should output the following tables under a schema with the following naming convention ```b2e-data-eng-final.[first-name]-[last-name]```
+    - Your pipeline should output the following tables under a schema with the following naming convention ```york-cdf-start.final-[first-name]-[last-name]```
 
       ### cust_tier_code-sku-total_no_of_product_views
 
@@ -58,22 +58,22 @@
   
       | Name          | Default            | Description                                       |
       | ------------- | ------------------ | ------------------------------------------------- |
-      | project       | b2e-data-eng-final | project ID                                        |
+      | project       | york-cdf-start     | project ID                                        |
       | region        | us-central1        | regional endpoint name                            |
       | runner        | DataflowRunner     | pipeline runner that executes your pipeline       |
       | temp_location |                    | Cloud Storage path for Dataflow temporary files   |
    
    
   - Your pipeline should pull all the data from the following input tables
-    - ```b2e-data-eng-final.input.customers```
-    - ```b2e-data-eng-final.input.product_views```
-    - ```b2e-data-eng-final.orders```
+    - ```york-cdf-start.final_input_data.customers```
+    - ```york-cdf-start.final_input_data.product_views```
+    - ```york-cdf-start.final_input_data.orders```
    
   - Your pipeline should then merge data from the input tables to create the following tables
     -  cust_tier_code-sku-total_no_of_product_views
-        - The data in this table should be the result of grouping all of the records from the ```b2e-data-eng-final.input.product_views``` table by the customers' tier code, the products SKU, and the count of records that match the tier code and SKU combination.
+        - The data in this table should be the result of grouping all of the records from the ```york-cdf-start.final_input_data.product_views``` table by the customers' tier code, the products SKU, and the count of records that match the tier code and SKU combination.
     - cust_tier_code-sku-total_sales_amount
-      - This data in this table should be the result of grouping all of the records from the ```b2e-data-eng-final.input.orders``` table by the customers' tier code, the products SKU, and the sum of the order amount for records that match the tier code and SKU combination.
+      - This data in this table should be the result of grouping all of the records from the ```york-cdf-start.final_input_data.orders``` table by the customers' tier code, the products SKU, and the sum of the order amount for records that match the tier code and SKU combination.
 
 ## Report Details
   - Your report should include the following elements
