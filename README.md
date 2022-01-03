@@ -1,11 +1,11 @@
 # Project Overview
 
- 1. Use apache beam create a data pipeline to aggregate data from three big query input tables.
- 2. Use the new aggregated data create a Google Data Studio report to visualize the data.
+ 1. Use apache beam to create a data pipeline to aggregate data from three big query input tables.
+ 2. Use the newly aggregated data to create a Google Data Studio report to visualize the data.
  3. Use Jenkins to launch a new Dataflow job anytime code is merged into the main branch of your repo
 
 # General Information
-  - All project resourses including any that you create should be under the google cloud project id ```b2e-data-eng-final```
+  - All project resources including any that you create should be under the google cloud project id ```b2e-data-eng-final```
   
     ## Input Data Specs
     - The input data is stored in three big query tables under the ```b2e-data-eng-final.input``` schema
@@ -71,9 +71,21 @@
    
   - Your pipeline should then merge data from the input tables to create the following tables
     -  cust_tier_code-sku-total_no_of_product_views
-        - The data in this table should be the result of grouping all of the records from the ```b2e-data-eng-final.input.product_views``` table by the customers's tier code, the products sku, and the count of records that match the tier code and sku combination.
+        - The data in this table should be the result of grouping all of the records from the ```b2e-data-eng-final.input.product_views``` table by the customers' tier code, the products SKU, and the count of records that match the tier code and SKU combination.
     - cust_tier_code-sku-total_sales_amount
-      - This data in this table should be the result of grouping all of the records from the ```b2e-data-eng-final.input.orders``` table by the customers's tier code, the products sku, and the sum of the order amount for records that match the tier code and sku combination.
+      - This data in this table should be the result of grouping all of the records from the ```b2e-data-eng-final.input.orders``` table by the customers' tier code, the products SKU, and the sum of the order amount for records that match the tier code and SKU combination.
 
 ## Report Details
-  
+  - Your report should include the following elements
+   - A sum of all product views
+   - A sum of all sales
+   - A sum of free tier customer's product views
+   - A sum of free tier customer's sales
+   - A sum of paid tier customer's product views
+   - A sum of paid tier customer's sales
+   - A column chart showing the free tier customer's product views and sales next to the paid tier customer's product views and sales
+   - A bar chart showing total sales for each SKU (sorted descending)
+   - A bar chart showing total sales for each SKU for free tier customers  (sorted descending)
+   - A bar chart showing total sales for each SKU for paid tier customers  (sorted descending)
+
+- Designing the layout and style of the report is up to you. Find the best way you can to display the requested data to make it readable and easy to digest.
