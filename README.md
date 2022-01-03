@@ -57,13 +57,13 @@
   - Your pipeline should take the following input options
   
   
-      | Name          | Default            | Description                                       |
-      | ------------- | ------------------ | ------------------------------------------------- |
-      | project       | york-cdf-start     | Project ID                                        |
-      | region        | us-central1        | Regional endpoint name                            |
-      | runner        | DataflowRunner     | Pipeline runner that executes your pipeline       |
-      | job_name      |                    | Display name for dataflow job                     |
-      | temp_location |                    | Cloud Storage path for Dataflow temporary files   |
+      | Name          | Default                            | Description                                       |
+      | ------------- | ---------------------------------- | ------------------------------------------------- |
+      | project       | york-cdf-start                     | Project ID                                        |
+      | region        | us-central1                        | Regional endpoint name                            |
+      | runner        | DataflowRunner                     | Pipeline runner that executes your pipeline       |
+      | temp_location | gs://york_temp_files               | Cloud Storage path for Dataflow temporary files   |
+      | job_name      | [first-name]-[last-name]-final-job | Display name for dataflow job                     |
    
    
   - Your pipeline should pull all the data from the following input tables
