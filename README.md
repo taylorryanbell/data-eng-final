@@ -53,14 +53,16 @@
       | total_sales_amount        | FLOAT          | REQUIRED    |
   
 ## Pipeline Details
+  - Your pipeline should include a ```requirements.txt``` with all of the required python packages listed inside
   - Your pipeline should take the following input options
   
   
       | Name          | Default            | Description                                       |
       | ------------- | ------------------ | ------------------------------------------------- |
-      | project       | york-cdf-start     | project ID                                        |
-      | region        | us-central1        | regional endpoint name                            |
-      | runner        | DataflowRunner     | pipeline runner that executes your pipeline       |
+      | project       | york-cdf-start     | Project ID                                        |
+      | region        | us-central1        | Regional endpoint name                            |
+      | runner        | DataflowRunner     | Pipeline runner that executes your pipeline       |
+      | job_name      |                    | Display name for dataflow job                     |
       | temp_location |                    | Cloud Storage path for Dataflow temporary files   |
    
    
@@ -89,3 +91,11 @@
     - A bar chart showing total sales for each SKU for paid tier customers  (sorted descending)
 
 - Designing the layout and style of the report is up to you. Find the best way you can to display the requested data to make it readable and easy to digest.
+
+## Jenkins Details
+ - Create a jenkins build project with the naming convention ```[first-name]-[last-name]-final-project``` inside the ```/var/dataflow``` directory
+  - Trigger the build anytime there is a push to your ```main``` branch
+  - Create and activate a python venv inside your new final-project folder
+  - Install required python packages inside your new venv from your ```requirements.txt``` file
+  - Set your ```GOOGLE_APPLICATION_CREDENTIALS``` environment variable to ```/var/dataflow/york-cdf-start-b0964900c176.json```
+  - Start your pipeline
