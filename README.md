@@ -94,8 +94,8 @@
 
 ## Jenkins Details
  - Create a jenkins build project with the naming convention ```[first-name]-[last-name]-final-project``` inside the ```/var/dataflow``` directory
-  - Trigger the build anytime there is a push to your ```main``` branch
-  - Create and activate a python venv inside your new final-project folder
-  - Install required python packages inside your new venv from your ```requirements.txt``` file
-  - Set your ```GOOGLE_APPLICATION_CREDENTIALS``` environment variable to ```/var/dataflow/york-cdf-start-b0964900c176.json```
-  - Start your pipeline
+   - Trigger the build anytime there is a push to your ```main``` branch
+   - Create and activate a python venv inside your new final-project folder
+   - Install required python packages inside your new venv from your ```requirements.txt``` file
+   - Set your ```GOOGLE_APPLICATION_CREDENTIALS``` environment variable to ```/var/dataflow/york-cdf-start-b0964900c176.json```
+   - Start your pipeline
