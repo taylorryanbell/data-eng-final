@@ -77,15 +77,15 @@
 
 ## Report Details
   - Your report should include the following elements
-   - A sum of all product views
-   - A sum of all sales
-   - A sum of free tier customer's product views
-   - A sum of free tier customer's sales
-   - A sum of paid tier customer's product views
-   - A sum of paid tier customer's sales
-   - A column chart showing the free tier customer's product views and sales next to the paid tier customer's product views and sales
-   - A bar chart showing total sales for each SKU (sorted descending)
-   - A bar chart showing total sales for each SKU for free tier customers  (sorted descending)
-   - A bar chart showing total sales for each SKU for paid tier customers  (sorted descending)
+    - A sum of all product views
+    - A sum of all sales
+    - A sum of free tier customer's product views
+    - A sum of free tier customer's sales
+    - A sum of paid tier customer's product views
+    - A sum of paid tier customer's sales
+    - A column chart showing the free tier customer's product views and sales next to the paid tier customer's product views and sales
+    - A bar chart showing total sales for each SKU (sorted descending)
+    - A bar chart showing total sales for each SKU for free tier customers  (sorted descending)
+    - A bar chart showing total sales for each SKU for paid tier customers  (sorted descending)
 
 - Designing the layout and style of the report is up to you. Find the best way you can to display the requested data to make it readable and easy to digest.
