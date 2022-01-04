@@ -53,7 +53,7 @@
       | total_sales_amount        | FLOAT          | REQUIRED    |
   
 ## Pipeline Details
-  - Your pipeline should include a ```requirements.txt``` with all of the required python packages listed inside
+  - Your pipeline should include a ```requirements.txt```file with all of the required python packages listed inside
   - Your pipeline should take the following input options
   
   
