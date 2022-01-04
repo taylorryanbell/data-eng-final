@@ -2,7 +2,7 @@
 
  1. Use apache beam to create a data pipeline to aggregate data from three big query input tables.
  2. Use the newly aggregated data to create a Google Data Studio report to visualize the data.
- 3. Use Jenkins to launch a new Dataflow job anytime code is merged into the main branch of your repo
+ 3. Use Jenkins to launch a new Google Dataflow job anytime code is merged into the main branch of your repo
 
 # General Information
   - All project resources including any that you create should be under the google cloud project id ```york-cdf-start```
