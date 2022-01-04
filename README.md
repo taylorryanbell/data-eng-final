@@ -75,7 +75,7 @@
     -  cust_tier_code-sku-total_no_of_product_views
         - The data in this table should be the result of grouping all of the records from the ```york-cdf-start.final_input_data.product_views``` table by the customers' tier code, the products SKU, and the count of records that match the tier code and SKU combination.
     - cust_tier_code-sku-total_sales_amount
-      - This data in this table should be the result of grouping all of the records from the ```york-cdf-start.final_input_data.orders``` table by the customers' tier code, the products SKU, and the sum of the order amount for records that match the tier code and SKU combination.
+      - The data in this table should be the result of grouping all of the records from the ```york-cdf-start.final_input_data.orders``` table by the customers' tier code, the products SKU, and the sum of the order amount for records that match the tier code and SKU combination.
 
 ## Report Details
   - Your report should include the following elements
