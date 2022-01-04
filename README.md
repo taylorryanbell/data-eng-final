@@ -5,7 +5,7 @@
  3. Use Jenkins to launch a new Google Dataflow job anytime code is merged into the main branch of your repo
 
 # General Information
-  - All project resources including any that you create should be under the google cloud project id ```york-cdf-start```
+  - All project that you create should be under the google cloud project id ```york-cdf-start```
   
     ## Input Data Specs
     - The input data is stored in three big query tables under the ```york-cdf-start.final_input_data``` schema
