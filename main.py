@@ -82,11 +82,10 @@ def run():
     test_table = bigquery.TableReference(
         projectId=PROJECT_ID,
         datasetId="trb_testing",
-        tableId="test-out-jenkins"
+        tableId="test-out-dataflow"
     )
 
-    # runner="DataflowRunner", options=opt
-    with beam.Pipeline() as pipeline:
+    with beam.Pipeline(runner="DataflowRunner", options=opt) as pipeline:
         data = pipeline | "ReadFromBigQueryTest" >> beam.io.ReadFromBigQuery(
             "gs://york-trb/tmp",
             table="york-cdf-start:trb_testing.test-table"
