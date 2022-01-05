@@ -24,19 +24,23 @@ OUT_TABLE2_ID = "cust_tier_code-sku-total_sales_amount"
 def run():
     print("Hello, Jenkins!")
 
-    opt = PipelineOptions(project="york-cdf-start",
-                          region="us-central1",
-                          temp_location="gs://york_temp_files",
-                          job_name="taylor-bell-final-job")
+    opt = PipelineOptions(
+        project="york-cdf-start",
+        region="us-central1",
+        temp_location="gs://york-trb/tmp",
+        staging_location="gs://york-trb/staging",
+        job_name="taylor-bell-final-job",
+        save_main_session=True
+    )
 
-    table1_schema = {
+    out_table1_schema = {
         "fields": [
             {"name": "cust_tier_code", "type": "STRING", "mode": "REQUIRED"},
             {"name": "sku", "type": "INTEGER", "mode": "REQUIRED"},
             {"name": "total_no_of_product_views", "type": "INTEGER", "mode": "REQUIRED"}
         ]
     }
-    table2_schema = {
+    out_table2_schema = {
         "fields": [
             {"name": "cust_tier_code", "type": "STRING", "mode": "REQUIRED"},
             {"name": "sku", "type": "INTEGER", "mode": "REQUIRED"},
@@ -47,11 +51,14 @@ def run():
     out_table1 = bigquery.TableReference(
         projectId=PROJECT_ID,
         datasetId=OUT_DATASET_ID,
-        tableId=OUT_TABLE1_ID)
+        tableId=OUT_TABLE1_ID
+    )
+
     out_table2 = bigquery.TableReference(
         projectId=PROJECT_ID,
         datasetId=OUT_DATASET_ID,
-        tableId=OUT_TABLE2_ID)
+        tableId=OUT_TABLE2_ID
+    )
 
     test_table = bigquery.TableReference(
         projectId=PROJECT_ID,
@@ -59,9 +66,7 @@ def run():
         tableId="test-table"
     )
 
-
-    # runner="DataflowRunner", options=opt
-    with beam.Pipeline() as pipeline:
+    with beam.Pipeline(runner="DataflowRunner", options=opt) as pipeline:
         data = pipeline | "ReadFromBigQueryTest" >> beam.io.ReadFromBigQuery("gs://york-trb/tmp", table="york-cdf-start:trb_testing.test-table")
 
         data | beam.Map(print)
@@ -70,3 +75,4 @@ def run():
 
 if __name__ == '__main__':
     run()
+    pass
