@@ -65,29 +65,25 @@ def run():
 
         # read in data from BigQuery using SQL queries
         data1 = pipeline | "ReadFromBigQuery1" >> beam.io.ReadFromBigQuery(
-            query='''
-                WITH CTE AS ( 
-                    SELECT c.CUST_TIER_CODE as cust_tier_code, SKU as sku, COUNT(p.SKU) as total_no_of_product_views 
-                    FROM `york-cdf-start.final_input_data.product_views` as p 
-                    JOIN `york-cdf-start.final_input_data.customers` as c ON p.CUSTOMER_ID = c.CUSTOMER_ID 
-                    GROUP BY sku, cust_tier_code 
-                    ORDER BY total_no_of_product_views DESC 
-                ) SELECT cust_tier_code, sku, total_no_of_product_views FROM CTE 
-                ORDER BY cust_tier_code, total_no_of_product_views DESC;
-                ''',
+            query="WITH CTE AS ( " \
+                  "SELECT c.CUST_TIER_CODE as cust_tier_code, SKU as sku, COUNT(p.SKU) as total_no_of_product_views " \
+                  "FROM `york-cdf-start.final_input_data.product_views` as p " \
+                  "JOIN `york-cdf-start.final_input_data.customers` as c ON p.CUSTOMER_ID = c.CUSTOMER_ID " \
+                  "GROUP BY sku, cust_tier_code " \
+                  "ORDER BY total_no_of_product_views DESC " \
+                  ") SELECT cust_tier_code, sku, total_no_of_product_views FROM CTE " \
+                  "ORDER BY cust_tier_code, total_no_of_product_views DESC;",
             use_standard_sql=True
         )
         data2 = pipeline | "ReadFromBigQuery2" >> beam.io.ReadFromBigQuery(
-            query='''
-                WITH CTE AS ( 
-                    SELECT c.CUST_TIER_CODE as cust_tier_code, SKU as sku, SUM(o.ORDER_AMT) as total_sales_amount 
-                    FROM `york-cdf-start.final_input_data.orders` as o 
-                    JOIN `york-cdf-start.final_input_data.customers` as c ON o.CUSTOMER_ID = c.CUSTOMER_ID 
-                    GROUP BY sku, cust_tier_code "
-                    ORDER BY total_sales_amount DESC 
-                ) SELECT cust_tier_code, sku, total_sales_amount FROM CTE 
-                ORDER BY cust_tier_code, total_sales_amount DESC;
-                ''',
+            query="WITH CTE AS ( " \
+                  "SELECT c.CUST_TIER_CODE as cust_tier_code, SKU as sku, SUM(o.ORDER_AMT) as total_sales_amount " \
+                  "FROM `york-cdf-start.final_input_data.orders` as o " \
+                  "JOIN `york-cdf-start.final_input_data.customers` as c ON o.CUSTOMER_ID = c.CUSTOMER_ID " \
+                  "GROUP BY sku, cust_tier_code " \
+                  "ORDER BY total_sales_amount DESC " \
+                  ") SELECT cust_tier_code, sku, total_sales_amount FROM CTE " \
+                  "ORDER BY cust_tier_code, total_sales_amount DESC;",
             use_standard_sql=True
         )
 
