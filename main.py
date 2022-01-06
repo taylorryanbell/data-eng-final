@@ -1,108 +1,110 @@
 #
-# York B2E Capstone - Final Project
-# Author: Taylor Bell
-# 2022.01.04
+# York B2E Capstone Project
+# Taylor Bell
+# 2022.1.5
+# Description: This program will create an apache beam pipeline which runs via Dataflow, and will build every time the
+#       app repo is updated on GitHub. This pipeline will read from three tables in BigQuery and then create two more.
 #
 
 # imports
-import json
 import apache_beam as beam
 from apache_beam.options.pipeline_options import PipelineOptions
 from apache_beam.io.gcp.internal.clients import bigquery
 
 
-# setting constants
-PROJECT_ID = "york-cdf-start"
-IN_DATASET_ID = "final_input_data"
-IN_TABLE1_ID = "customers"
-IN_TABLE2_ID = "product_views"
-IN_TABLE3_ID = "orders"
-OUT_DATASET_ID = "final-taylor-bell"
-OUT_TABLE1_ID = "cust_tier_code-sku-total_no_of_product_views"
-OUT_TABLE2_ID = "cust_tier_code-sku-total_sales_amount"
-
-
-class ChangeData(beam.DoFn):
+class ChangeDataType(beam.DoFn):
     def process(self, element):
-        print(element)
-        print(type(element))
-        # new_string = json.loads(element.decode("UTF-8"))
-        # print(new_string)
-
-        # output = json.dumps(new_string).encode("UTF-8")
+        # print(element)
+        # print(type(element["cust_tier_code"]))
+        element["cust_tier_code"] = str(element["cust_tier_code"])
+        element["sku"] = int(element["sku"])
+        # print(type(element["cust_tier_code"]))
+        # print(element)
         yield element
 
+
 def run():
-    print("Hello, Jenkins!")
 
     opt = PipelineOptions(
+        temp_location="gs://york-trb/tmp/",
+        staging_location="gs://york-trb/staging",
         project="york-cdf-start",
         region="us-central1",
-        temp_location="gs://york-trb/tmp",
-        staging_location="gs://york-trb/staging",
-        job_name="taylor-bell-final-job",
+        job_name="taylor-bell-process3",
         save_main_session=True
     )
 
-    out_table1_schema = {
-        "fields": [
-            {"name": "cust_tier_code", "type": "STRING", "mode": "REQUIRED"},
-            {"name": "sku", "type": "INTEGER", "mode": "REQUIRED"},
-            {"name": "total_no_of_product_views", "type": "INTEGER", "mode": "REQUIRED"}
+    export_1_schema = {
+        'fields': [
+            {'name': 'cust_tier_code', 'type': 'STRING', 'mode': 'REQUIRED'},
+            {'name': 'sku', 'type': 'INTEGER', 'mode': 'REQUIRED'},
+            {'name': 'total_no_of_product_views', 'type': 'INTEGER', 'mode': 'REQUIRED'}
         ]
     }
-    out_table2_schema = {
-        "fields": [
-            {"name": "cust_tier_code", "type": "STRING", "mode": "REQUIRED"},
-            {"name": "sku", "type": "INTEGER", "mode": "REQUIRED"},
-            {"name": "total_sales_amount", "type": "FLOAT", "mode": "REQUIRED"}
-        ]
-    }
-
-    out_test_schema = {
-        "fields": [
-            {"name": "order_id", "type": "INTEGER", "mode": "REQUIRED"},
-            {"name": "customer_name", "type": "STRING", "mode": "REQUIRED"},
-            {"name": "items", "type": "STRING", "mode": "REQUIRED"}
+    export_2_schema = {
+        'fields': [
+            {'name': 'cust_tier_code', 'type': 'STRING', 'mode': 'REQUIRED'},
+            {'name': 'sku', 'type': 'INTEGER', 'mode': 'REQUIRED'},
+            {'name': 'total_sales_amount', 'type': 'FLOAT', 'mode': 'REQUIRED'}
         ]
     }
 
     out_table1 = bigquery.TableReference(
-        projectId=PROJECT_ID,
-        datasetId=OUT_DATASET_ID,
-        tableId=OUT_TABLE1_ID
+        projectId="york-cdf-start",
+        datasetId="final_taylor_bell",
+        tableId="cust_tier_code-sku-total_no_of_product_views"
     )
 
     out_table2 = bigquery.TableReference(
-        projectId=PROJECT_ID,
-        datasetId=OUT_DATASET_ID,
-        tableId=OUT_TABLE2_ID
-    )
-
-    test_table = bigquery.TableReference(
-        projectId=PROJECT_ID,
-        datasetId="trb_testing",
-        tableId="test-out-dataflow"
+        projectId="york-cdf-start",
+        datasetId="final_taylor_bell",
+        tableId="cust_tier_code-sku-total_sales_amount"
     )
 
     with beam.Pipeline(runner="DataflowRunner", options=opt) as pipeline:
-        data = pipeline | "ReadFromBigQueryTest" >> beam.io.ReadFromBigQuery(
-            "gs://york-trb/tmp",
-            table="york-cdf-start:trb_testing.test-table"
+
+        # read in data from BigQuery using SQL queries
+        data1 = pipeline | "ReadFromBigQuery1" >> beam.io.ReadFromBigQuery(
+            query="WITH CTE AS ( " \
+                  "SELECT c.CUST_TIER_CODE as cust_tier_code, SKU as sku, COUNT(p.SKU) as total_no_of_product_views " \
+                  "FROM `york-cdf-start.final_input_data.product_views` as p " \
+                  "JOIN `york-cdf-start.final_input_data.customers` as c ON p.CUSTOMER_ID = c.CUSTOMER_ID " \
+                  "GROUP BY sku, cust_tier_code " \
+                  "ORDER BY total_no_of_product_views DESC " \
+                  ") SELECT cust_tier_code, sku, total_no_of_product_views FROM CTE " \
+                  "ORDER BY cust_tier_code, total_no_of_product_views DESC;",
+            use_standard_sql=True
+        )
+        data2 = pipeline | "ReadFromBigQuery2" >> beam.io.ReadFromBigQuery(
+            query="WITH CTE AS ( " \
+                  "SELECT c.CUST_TIER_CODE as cust_tier_code, SKU as sku, SUM(o.ORDER_AMT) as total_sales_amount " \
+                  "FROM `york-cdf-start.final_input_data.orders` as o " \
+                  "JOIN `york-cdf-start.final_input_data.customers` as c ON o.CUSTOMER_ID = c.CUSTOMER_ID " \
+                  "GROUP BY sku, cust_tier_code " \
+                  "ORDER BY total_sales_amount DESC " \
+                  ") SELECT cust_tier_code, sku, total_sales_amount FROM CTE " \
+                  "ORDER BY cust_tier_code, total_sales_amount DESC;",
+            use_standard_sql=True
         )
 
-        change = data | "ChangeData" >> beam.ParDo(ChangeData())
+        # convert data types
+        converted1 = data1 | "ChangeDataType1" >> beam.ParDo(ChangeDataType())
+        converted2 = data2 | "ChangeDataType2" >> beam.ParDo(ChangeDataType())
 
-        change | "WriteToBigQuery" >> beam.io.WriteToBigQuery(
-            test_table,
-            custom_gcs_temp_location="gs://york-trb/tmp",
-            schema=out_test_schema,
-            create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED
+        # write to bigquery tables
+        converted1 | "Write1" >> beam.io.WriteToBigQuery(
+            out_table1,
+            schema=export_1_schema,
+            create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
+            custom_gcs_temp_location="gs://york-trb/tmp"
         )
-
-        pass
+        converted2 | "Write2" >> beam.io.WriteToBigQuery(
+            out_table2,
+            schema=export_2_schema,
+            create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
+            custom_gcs_temp_location="gs://york-trb/tmp"
+        )
 
 
 if __name__ == '__main__':
     run()
-    pass
