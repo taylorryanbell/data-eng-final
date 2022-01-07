@@ -7,7 +7,7 @@
 	- [ ] Does `requirements.txt` include `apache-beam[gcp]`?
 
 ---
-### STEP 2 - JENKINS
+## STEP 2 - JENKINS
 - [ ] Was a Jenkins project created with the programmer's name and an appropriate title?
 - [ ] Does it connect to the appropriate GitHub properly?
 	- [ ] Webhook inside GitHub settings: `http://3.21.225.172:8081/github-webhook/`
@@ -34,7 +34,7 @@
 	python3 main.py`
 
 ---
-### STEP 3 - THE PYTHON PROGRAM: Apache Beam
+## STEP 3 - THE PYTHON PROGRAM: Apache Beam
 - [ ] Uses `import apache_beam`, and any other necessary packages?
 - [ ] Contains an apache beam pipeline (`with beam.Pipeline() as pipeline` as example)
 - [ ] Pulls data from the three appropriate BigQuery tables?
@@ -52,13 +52,13 @@
 - [ ] Program runs without error (A couple Warnings are expected)
 
 ---
-### STEP 4 - GOOGLE CLOUD PLATFORM
+## STEP 4 - GOOGLE CLOUD PLATFORM
 - When the program runs, does it do the following?
 	- [ ] Inside Google Cloud Dataflow: A new job is generated with type Batch, and a name that follows the naming convention: `[first-name]-[last-name]-final-job`
 	- [ ] Inside BigQuery: The two new tables are created with the naming convention given in the previous section.
 
 ---
-### STEP 5 - CHECKING THE DATA
+## STEP 5 - CHECKING THE DATA
 - [ ] The table called `cust_tier_code-sku-total_no_of_product_views` should have 1990 rows, and it should contain the designated columns:
 		- cust_tier_code (STRING), Required
 		- sku (INTEGER), Required
@@ -69,7 +69,7 @@
 		- total_sales_amount (FLOAT), Required
 
 ---
-### STEP 6 - CHECKING THE REPORT
+## STEP 6 - CHECKING THE REPORT
 The link to the publicly visible Data Studio report should be visible in the programmer's GitHub repo's Readme.
 - The 6 sums:
 	- All product_views: 10,000
