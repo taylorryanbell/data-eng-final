@@ -1,4 +1,4 @@
-# Reviewing a Capstone Final
+# Capstone Final Review
 
 ## STEP 1 - SET UP (Creating a repo in GitHub)
 - [ ] Was the Project forked from the original repo at https://www.github.com/adam-street/data-eng-final ?
