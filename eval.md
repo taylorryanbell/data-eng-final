@@ -1,6 +1,6 @@
 # Reviewing a Capstone Final
 
-### STEP 1 - SET UP (Creating a repo in GitHub)
+## STEP 1 - SET UP (Creating a repo in GitHub)
 - [ ] Was the Project forked from the original repo at https://www.github.com/adam-street/data-eng-final ?
 - [ ] Was a python `.py` program created in their repo?
 - [ ] Was a `requirements.txt` file created in their repo?
