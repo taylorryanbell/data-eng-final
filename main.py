@@ -64,7 +64,7 @@ def run():
 
         # read in data from BigQuery using SQL queries
         data1 = pipeline | "ReadFromBigQuery1" >> beam.io.ReadFromBigQuery(
-            query="DROP TABLE IF EXISTS `york-cdf-start.final_taylor_bell.cust_tier_code-sku-total_no_of_product_views` " \
+            query="DROP TABLE IF EXISTS `york-cdf-start.final_taylor_bell.cust_tier_code-sku-total_no_of_product_views`; " \
                   "WITH CTE AS ( " \
                   "SELECT c.CUST_TIER_CODE as cust_tier_code, SKU as sku, COUNT(p.SKU) as total_no_of_product_views " \
                   "FROM `york-cdf-start.final_input_data.product_views` as p " \
@@ -76,7 +76,7 @@ def run():
             use_standard_sql=True
         )
         data2 = pipeline | "ReadFromBigQuery2" >> beam.io.ReadFromBigQuery(
-            query="DROP TABLE IF EXISTS `york-cdf-start.final_taylor_bell.cust_tier_code-sku-total_sales_amount` "
+            query="DROP TABLE IF EXISTS `york-cdf-start.final_taylor_bell.cust_tier_code-sku-total_sales_amount`; "
                   "WITH CTE AS ( " \
                   "SELECT c.CUST_TIER_CODE as cust_tier_code, SKU as sku, SUM(o.ORDER_AMT) as total_sales_amount " \
                   "FROM `york-cdf-start.final_input_data.orders` as o " \
