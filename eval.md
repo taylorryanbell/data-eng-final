@@ -8,6 +8,8 @@
 
 ---
 ## STEP 2 - JENKINS
+- [ ] Is there a .gitignore? files like...
+          .idea
 - [ ] Was a Jenkins project created with the programmer's name and an appropriate title?
 - [ ] Does it connect to the appropriate GitHub properly?
 	- [ ] Webhook inside GitHub settings: `http://3.21.225.172:8081/github-webhook/`
@@ -20,7 +22,9 @@
 		- create a virtual environment
 		- activate the virtual environment
 		- use pip to install packages via `requirements.txt`
+			- (must contain apache-beam[gcp], may contain other things, explain why)
 		- export the GOOGLE_APPLICATION_CREDENTIALS to use the given link `/var/dataflow/york-cdf-start-b0964900c176.json`
+			- (file provided by Adam on server to take care of credentials)
 		- run the python file to execute a Dataflow pipeline
 	- An example of the code that can accomplish the above:
 	`mkdir -p /var/dataflow/taylor-bell-final-project/
@@ -32,9 +36,16 @@
 	export GOOGLE_APPLICATION_CREDENTIALS="/var/dataflow/york-cdf-start-b0964900c176.json"
 	python3 -m pip install -r requirements.txt
 	python3 main.py`
+	- Show console output for last Jenkins build/run
+        - Did it do what it was supposed to do?
+        - Finished: SUCCESS
+        - Can student explain the output reasonably indicating they are not lost?
 
 ---
 ## STEP 3 - THE PYTHON PROGRAM: Apache Beam
+- Open Main.py (can be any program name but should make sense for the purpose
+	- Can student explain execution path through their code?
+	- Do they have a `if __main__ == '__main__':` statement?
 - [ ] Uses `import apache_beam`, and any other necessary packages?
 - [ ] Contains an apache beam pipeline (`with beam.Pipeline() as pipeline` as example)
 - [ ] Pulls data from the three appropriate BigQuery tables?
@@ -67,6 +78,8 @@
 ## STEP 4 - GOOGLE CLOUD PLATFORM
 - When the program runs, does it do the following?
 	- [ ] Inside Google Cloud Dataflow: A new job is generated with type Batch, and a name that follows the naming convention: `[first-name]-[last-name]-final-job`
+	- [ ] ![Screen Shot 2022-01-08 at 11 06 29 AM](https://user-images.githubusercontent.com/94078849/148653145-a9205f6e-4612-4939-bd99-07fa36cbf386.png)
+
 	- [ ] Inside BigQuery: The two new tables are created with the naming convention given in the previous section.
 
 ---
@@ -82,7 +95,7 @@
 
 ---
 ## STEP 6 - CHECKING THE REPORT
-The link to the publicly visible Data Studio report should be visible in the programmer's GitHub repo's Readme.
+The link to the publicly visible Data Studio report should be visible at the top of the programmer's GitHub repo's Readme.
 - [ ] The 6 sums:
     - All product_views: 10,000
     - All sales: $17,471,263.20
