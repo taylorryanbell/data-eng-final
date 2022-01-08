@@ -38,17 +38,29 @@
 - [ ] Uses `import apache_beam`, and any other necessary packages?
 - [ ] Contains an apache beam pipeline (`with beam.Pipeline() as pipeline` as example)
 - [ ] Pulls data from the three appropriate BigQuery tables?
-		-    `york-cdf-start.final_input_data.customers`
-		-   `york-cdf-start.final_input_data.product_views`
-		-   `york-cdf-start.final_input_data.orders`
+        -    `york-cdf-start.final_input_data.customers`
+        -   `york-cdf-start.final_input_data.product_views`
+        -   `york-cdf-start.final_input_data.orders`
 - [ ] Transforms the data in any required ways?
-	- for instance, changing the data types to meet the appropriate requirements of the given schema in the Readme;
-	- or combining data if necessary (through some method like PTransform or SQL query), to create the output data in dictionary form
+    - for instance, changing the data types to meet the appropriate requirements of the given schema in the Readme;
+    - or combining data if necessary (through some method like PTransform or SQL query), to create the output data in dictionary form
 - [ ] Uses `DataflowRunner` via the PipelineOptions to process the beam pipeline in Google Cloud Dataflow?
-- [ ] Uses the other required options provided in the Readme
+- [ ] Uses the other required pipeline options provided in the Readme
+  - `opt = PipelineOptions(
+        project="york-cdf-start",
+        region="us-central1",
+        runner="DataflowRunner",
+        temp_location="gs://york_temp_files/tmp/",
+        staging_location="gs://york_temp_files/staging",
+        job_name="taylor-bell-final-job",
+    )`
 - [ ] Outputs data to two new BigQuery tables with the appropriate naming convention:
-	- `york-cdf-start.final-[firstname]-[lastname].cust_tier_code-sku-total_no_of_product_views`
-	- `york-cdf-start.final-[firstname]-[lastname].cust_tier_code-sku-total_sales_amount
+    - `york-cdf-start.final-[firstname]-[lastname].cust_tier_code-sku-total_no_of_product_views`
+    - `york-cdf-start.final-[firstname]-[lastname].cust_tier_code-sku-total_sales_amount`
+- [ ] Does the program create the correct schemas, specified in the Readme
+- [ ] Does the student understand how the schemas are being created
+- [ ] Is the student accounting for "mode: REQUIRED" appropriately in the schema?
+- [ ] Is duplicate data accounted for in output tables, and how?
 - [ ] Program runs without error (A couple Warnings are expected)
 
 ---
@@ -71,15 +83,15 @@
 ---
 ## STEP 6 - CHECKING THE REPORT
 The link to the publicly visible Data Studio report should be visible in the programmer's GitHub repo's Readme.
-- The 6 sums:
-	- All product_views: 10,000
-	- All sales: $17,471,263.20
-	- Free tier product_views: 5,051
-	- Free tier sales: $9,106,300.57
-	- Paid tier product_views: 4,949
-	- Paid tier sales: $8,364,962.63
-- The Column chart: A single chart which Blends both output tables from the individual's BigQuery final dataset. Display should be a total of 4 vertical columns: Free tier product_views, Free tier sales; followed up Paid tier product_views, and Paid Tier sales. The chart ought to show axes labels, and a legend for which bar represents which section of data.
-- The Three bar graphs
-	- Total sales per Sku
-	- Total sales per Sku (Free tier only)
-	- Total sales per Sku (Paid tier only)
+- [ ] The 6 sums:
+    - All product_views: 10,000
+    - All sales: $17,471,263.20
+    - Free tier product_views: 5,051
+    - Free tier sales: $9,106,300.57
+    - Paid tier product_views: 4,949
+    - Paid tier sales: $8,364,962.63
+- [ ] The Column chart: A single chart which Blends both output tables from the individual's BigQuery final dataset. Display should be a total of 4 vertical columns: Free tier product_views, Free tier sales; followed up Paid tier product_views, and Paid Tier sales. The chart ought to show axes labels, and a legend for which bar represents which section of data.
+- [ ] The Three bar graphs
+    - Total sales per Sku
+    - Total sales per Sku (Free tier only)
+    - Total sales per Sku (Paid tier only)
