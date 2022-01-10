@@ -8,6 +8,8 @@
 #       created fresh each time. This will prevent stacking redundant data.
 #
 
+# Changed
+
 # imports
 import apache_beam as beam
 from apache_beam.options.pipeline_options import PipelineOptions
