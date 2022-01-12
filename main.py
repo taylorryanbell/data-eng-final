@@ -8,7 +8,6 @@
 #       created fresh each time. This will prevent stacking redundant data.
 #
 
-# Changed
 
 # imports
 import apache_beam as beam
